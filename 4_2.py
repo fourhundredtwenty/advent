@@ -11,19 +11,13 @@ class Passport(dict):
             'cid': self.validate_cid,
         }
 
-        print()
-        print(self)
-
         has_the_right_fields = set([i for i in self.validator_functions.keys() if not i =='cid']).issubset(set(self.keys()))
         fields_all_look_good = all([self.validator_functions[field_name](field_value) for field_name,field_value in self.items()])
 
-        print(f"good fields: {has_the_right_fields}")
-        print(f"fields  valid : {fields_all_look_good}")
         return has_the_right_fields and fields_all_look_good
 
     # byr (Birth Year) - four digits; at least 1920 and at most 2002.
     def validate_byr(self, field_value):
-        print(f"byr: {field_value} -> {2002 > int(field_value) > 1920}")
         if field_value.isdigit():
             return 2002 >= int(field_value) >= 1920
         else:
@@ -31,7 +25,6 @@ class Passport(dict):
 
     # iyr (Issue Year) - four digits; at least 2010 and at most 2020.
     def validate_iyr(self, field_value):
-        print(f"iyr: {field_value} -> {2020 >= int(field_value) >= 2010}")
         if field_value.isdigit():
             return 2020 >= int(field_value) >= 2010
         else:
@@ -39,7 +32,6 @@ class Passport(dict):
 
     # eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
     def validate_eyr(self, field_value):
-        print(f"eyr: {field_value} -> {2030 > int(field_value) > 2020}")
         if field_value.isdigit():
             return 2030 >= int(field_value) >= 2020
         else:
@@ -61,24 +53,20 @@ class Passport(dict):
         elif unit == "in":
             height_is_all_cool = 76 >= value >= 59
 
-        print(f"hgt: {field_value} -> {height_is_all_cool}")
         return height_is_all_cool
 
     # hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
     def validate_hcl(self, field_value):
-        print(f"hcl: {field_value} -> {field_value.startswith('#') and set(field_value).issubset('#0123456789abcdef')}")
 
         return field_value.startswith('#') and set(field_value).issubset("#0123456789abcdef")
 
     # ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
     def validate_ecl(self, field_value):
-        print(f"ecl: {field_value} -> {field_value in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']}")
 
         return field_value in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
 
     # pid (Passport ID) - a nine-digit number, including leading zeroes.
     def validate_pid(self, field_value):
-        print(f"pid: {field_value} -> {field_value.isdigit() and len(field_value) == 9}")
 
         return field_value.isdigit() and len(field_value) == 9
 
