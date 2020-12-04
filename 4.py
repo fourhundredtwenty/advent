@@ -1,5 +1,5 @@
 class Passport(dict):
-    REQUIRED_FIELDS = [
+    REQUIRED_FIELDS = set([
         'byr',
         'iyr',
         'eyr',
@@ -8,10 +8,11 @@ class Passport(dict):
         'ecl',
         'pid',
         # 'cid',
-    ]
+    ])
 
     def validate(self):
-        return set(self.REQUIRED_FIELDS) == set(self.keys())
+        print(set(self.keys()))
+        return self.REQUIRED_FIELDS in set(self.keys())
 
 
 with open("4.data") as datafile:
