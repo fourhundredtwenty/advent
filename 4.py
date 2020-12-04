@@ -11,8 +11,7 @@ class Passport(dict):
     ])
 
     def validate(self):
-        print(set(self.keys()))
-        return self.REQUIRED_FIELDS in set(self.keys())
+        return self.REQUIRED_FIELDS.issubset(set(self.keys()))
 
 
 with open("4.data") as datafile:
