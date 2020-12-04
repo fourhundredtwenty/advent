@@ -14,10 +14,10 @@ class Passport(dict):
         print()
         print(self)
 
-        has_the_right_fields = set(self.validator_functions.keys()).issubset(set(self.keys()))
+        has_the_right_fields = set([i for i in self.validator_functions.keys() if not i =='cid']).issubset(set(self.keys()))
         fields_all_look_good = all([self.validator_functions[field_name](field_value) for field_name,field_value in self.items()])
 
-        print(f"missing fields: {not has_the_right_fields}")
+        print(f"good fields: {has_the_right_fields}")
         print(f"fields  valid : {fields_all_look_good}")
         return has_the_right_fields and fields_all_look_good
 
@@ -25,15 +25,15 @@ class Passport(dict):
     def validate_byr(self, field_value):
         print(f"byr: {field_value} -> {2002 > int(field_value) > 1920}")
         if field_value.isdigit():
-            return 2002 > int(field_value) > 1920
+            return 2002 >= int(field_value) >= 1920
         else:
             return False
 
     # iyr (Issue Year) - four digits; at least 2010 and at most 2020.
     def validate_iyr(self, field_value):
-        print(f"iyr: {field_value} -> {2020 > int(field_value) > 2010}")
+        print(f"iyr: {field_value} -> {2020 >= int(field_value) >= 2010}")
         if field_value.isdigit():
-            return 2020 > int(field_value) > 2010
+            return 2020 >= int(field_value) >= 2010
         else:
             return False
 
@@ -41,7 +41,7 @@ class Passport(dict):
     def validate_eyr(self, field_value):
         print(f"eyr: {field_value} -> {2030 > int(field_value) > 2020}")
         if field_value.isdigit():
-            return 2030 > int(field_value) > 2020
+            return 2030 >= int(field_value) >= 2020
         else:
             return False
 
@@ -57,9 +57,9 @@ class Passport(dict):
             height_is_all_cool = False
 
         if unit == "cm":
-            height_is_all_cool = 193 > value > 150
+            height_is_all_cool = 193 >= value >= 150
         elif unit == "in":
-            height_is_all_cool = 76 > value > 59
+            height_is_all_cool = 76 >= value >= 59
 
         print(f"hgt: {field_value} -> {height_is_all_cool}")
         return height_is_all_cool
@@ -78,9 +78,9 @@ class Passport(dict):
 
     # pid (Passport ID) - a nine-digit number, including leading zeroes.
     def validate_pid(self, field_value):
-        print(f"pid: {field_value} -> {field_value.isdigit() and len(field_value) > 5}")
+        print(f"pid: {field_value} -> {field_value.isdigit() and len(field_value) == 9}")
 
-        return field_value.isdigit() and len(field_value) > 5
+        return field_value.isdigit() and len(field_value) == 9
 
     # cid (Country ID) - ignored, missing or not.
     def validate_cid(self, field_value):
