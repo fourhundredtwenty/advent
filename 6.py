@@ -3,7 +3,6 @@ with open("6.data") as datafile:
 
 groups_of_forms = raw_forms.split("\n\n")
 
-#iaskjrpl;ghjaei;rlskdjgfa;owlir/skjdfo;ialwkjsefmaiow;lkds
 yes_count_per_group = [len(set(group.replace('\n', ''))) for group in groups_of_forms]
 total_yesses = sum(yes_count_per_group)
 
