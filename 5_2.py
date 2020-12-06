@@ -12,4 +12,11 @@ sorted_ticket_ids = sorted(
 
 # yea ok
 
-print([ticket_pair[0] + 1 for ticket_pair in zip(sorted_ticket_ids, sorted_ticket_ids[1:]) if ticket_pair[1] - ticket_pair[0] == 2][0])
+my_ticket = [
+    ticket_pair[0] + 1
+    for ticket_pair in
+    zip(sorted_ticket_ids, sorted_ticket_ids[1:])
+    if ticket_pair[1] - ticket_pair[0] == 2
+][0]
+
+print(my_ticket)
