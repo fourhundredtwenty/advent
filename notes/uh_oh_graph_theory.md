@@ -112,9 +112,9 @@ or you can see a more graphical representation [here on github](https://github.c
 
 ## Summary so far
 
-Git is a graph
-Commits are nodes
-Create commits to store code
+- Git is a graph
+- Commits are nodes
+- Create commits to store code
 
 ## Branches at last
 
