@@ -23,7 +23,7 @@ So Git uses a graph to represent changes that occur to a folder full of text fil
 
 I want to show an example of how git creates a graph, commit by commit from an empty repository.
 
-```
+```console
 # make an empty folder
 $ mkdir test_repo
 $ cd test_repo
@@ -34,7 +34,7 @@ $ git init
 
 At this point i have an empty folder and that folder is also an empty git repository. If I ask git to show me a visual representation of the graph that is this repo? well it's going to be empty also since we have no files
 
-```
+```console
 # hey, git, show me this graph.
 $ git log --oneline --graph
 fatal: your current branch 'main' does not have any commits yet
@@ -42,7 +42,7 @@ fatal: your current branch 'main' does not have any commits yet
 
  So next i create a single file. At this point i haven't made a commit so our graph will still be empty
 
-```
+```console
 # create a new file called "example1"
 # and write the string "adamis20" to that file
 $ echo "adamis20" > example
@@ -52,14 +52,14 @@ fatal: your current branch 'main' does not have any commits yet
 
 My next step is to add the new file to the staging index. At this point there STILL won't be a single node in our graph. The staging index is a collection of files that will be part of the next commit. Since commits are the fundamental building blocks of git, it's nice to have a staging area that lets you choose what goes into a commit before you pull the lever.
 
-```
+```console
 # our new file is going into the next commit
 $ git add example
 ```
 
 At this point everything is ready to go and we create the first node in our graph - often called the `initial commit` or `root commit`
 
-```
+```console
 # create the initial commit
 $ git commit -m "big bang"
 [main (root-commit) f9feac5] big bang
@@ -73,7 +73,7 @@ git log --oneline --graph
 
 Now I'm going to make a change to the file and commit that as well and show that creates another node in the graph.
 
-```
+```console
 $ echo "adamis30" > example # change the file
 $ git add -u # stage the file
 $ git commit -m "the years start coming" # make a commit
@@ -87,7 +87,7 @@ $ git log --oneline --graph
 
 You can see that there is now a second entry in this list: the new commit. This small two-commit git repo could continue on in this same way forever. One commit following its parent on down the line towards infinity. `A -> B -> C -> D` and so on. This pattern of use is common and cool. Your repo is a linear graph, and you can see that here in the CLI
 
-```
+```console
 ~ ❯❯❯ cd development/AdamAdvent2020/
 ~/d/AdamAdvent2020 ❯❯❯ git pull
 ... blah blah blah ...
@@ -115,7 +115,7 @@ Branches are auto-advancing, so if you We're already using a branch by default i
 
 and that the weird parenthetical string  `(HEAD -> main)` moved from the first commit to the new commit. For reference, here's what the graph of the demo repo looked like at the initial commit.
 
-```
+```console
 git log --oneline --graph
 * f9feac5 (HEAD -> main) big bang
 ```
@@ -124,7 +124,7 @@ This is saying that the branch `main` is pointing at the commit `big bang`.  The
 
 You can make new branches and point them at other commits for free. Our demo repo has 2 commits and one branch. That branch (`main`) is pointing to the most recent of those two commits. So I'm going to create a new branch and point it to the same commit as `main`
 
-```
+```console
 # what branches exist? just main
 $ git branch
 * main
@@ -154,7 +154,7 @@ o  -- o
 
 Now I'm going to make a new commit. I'm still *checked out* to `main` which is an important distinction. When I commit only the pointer for my checked-out branch will be advanced to the new commit. So in this case, `main` will move forward to a new third commit, but `b2` will remain at the second commit.
 
-```
+```console
 # delete our one and only file
 $ rm example
 # stage the deleted file
@@ -195,6 +195,7 @@ A branch can point to any commit. If a branch points to the commit at the end of
 branches do sort of work by being "over-written" when you make a new commit. In that the branch itself will automatically move to point at the most recent commit that you made. But since all commits keep track of their original parent commits there's no way to lose track of that intermediary commit. If you make multiple commits on a branch you just get a longer and longer graph. One of the fundamental rules of git is that the past is immutable. Once a commit has been made you shouldn't go manipulating what parents that commit has or changing the content of the commit. You can always go forward by creating more commits, but if you go back and delete or manipulate history you can risk damaging your past and that's philosophically heavy and technologically annoying. I guess i would say if you're following good git hygeine you'll never overwrite anything. That may be too extreme of a maxim but it's close to right.
 
 - I guess I'm mostly unsure why I'm committing
+
 i don't want to belabor the point on this one.
 
 
