@@ -1,8 +1,12 @@
 # uh oh, graph theory
 
+## Intro
+
 So before i give a specific answer to each of the questions in _uh oh, graph theory_ I'm going to just talk about the guts of git because it makes the answers make sense. Otherwise it's kind of just arbitrary "because i said so"
 
 The title of the section is a spoiler but Git is a *graph*. Maybe you remember graph theory from being a nerd or from college or whatever.
+
+### Back to 'what's a graph'
 
 Here's a picture of a graph. You don't have to look too hard at it, there's no specific examples relating to this graph. i just like having examples to look at
 
@@ -17,9 +21,13 @@ I'm so sorry, this is absolutely real and this is real software that people use 
 Here's another picture of a git graph. This one is has the arrows going in the correct direction for git's DAG behavior. In this figure time is flowing from left to right, and the arrows are pointing from right to left - backwards - from each commit to it's parent commit.
 ![Image for post](https://miro.medium.com/max/500/1*bkT3ig0T_VRkQpTb1XjZGA.png)
 
+## How is git a graph
+
 ~~okay skip to here if you don't want to read about what graphs are and stuff
 
 So Git uses a graph to represent changes that occur to a folder full of text files  (i.e. a repo of code) . Every commit is a node in the graph that has a pointer to its parents and a stored copy of the changes you comitted.  Your fundamental, atomic operation for storing code in git is creating a commit -- that is creating a node. `git commit` is your generative tool in git. But you have to do the work of deciding when to commit. And you also get to/have to control where in the graph your new commit goes. Manually creating commits is your burden as a living, thinking human. I feel like that's not a helpful thing to say. But what i'm trying to say is that you make commits because the data structure git is based on _is_ the concept of commits. this *is* the game. In order to track your changes git uses the idea of commits, so we must make them to use git.
+
+### Example: building a graph commit-by-commit
 
 I want to show an example of how git creates a graph, commit by commit from an empty repository.
 
@@ -100,12 +108,15 @@ You can see that there is now a second entry in this list: the new commit. This 
 
 or you can see a more graphical representation [here on github](https://github.com/Trainpants/Advent2020/network).  Your repo is a graph of 4 commits in a line.
 
-History tangent: Git isn't the first thing like git. This type of tool for managing code is called a "version control system". Many pre-git version control tools didn't offer the ability to do branching, so this linear model that we've looked at so far for got was basically all you got in the 80s, 90s and early 2000s. So the ability to do fast, nearly unlimited branching in git was a complete game changer.
+> History tangent: Git isn't the first thing like git. This type of tool for managing code is called a "version control system". Many pre-git version control tools didn't offer the ability to do branching, so this linear model that we've looked at so far for got was basically all you got in the 80s, 90s and early 2000s. So the ability to do fast, nearly unlimited branching in git was a complete game changer.
 
-Summary so far:
+## Summary so far
+
 Git is a graph
 Commits are nodes
 Create commits to store code
+
+## Branches at last
 
 I think we can talk about branches now. While it may feel like branches are independent working copies of your code, that's not really the case. In fact branches are just pointers to commits. They are a little more than *just* a pointer. Theyr'e an auto-advancing pointer. This is an annoying definition alone. It's almost a trick. So I want to make a practical example of a normal use of a branch and examine what a branch is there.
 
@@ -182,6 +193,8 @@ o ------- o ------- o
 ```
 
 A branch is just a pointer. There are commands for moving branch pointers to arbitrary locations in the graph and all sorts of other nonsense that is only possible or reasonable because a branch is not any real set of files, it's a way of manipulating your view of the git graph.
+
+## Your Questions
 
 I think maybe i will try to answer your original questions now
 
